@@ -21,8 +21,6 @@ def load_genres():
 Loads the spectrogram for a specific Spotify URI (id).
 """
 def load_spectrogram(uri):    
-    return np.zeros((400,500,1))
-
     spectrogram = imread(spectrogram_path + "/" + str(uri) + spectrogram_type) / 256
 
     height = spectrogram.shape[0]
@@ -54,15 +52,18 @@ def load_data_for_keras(slice_width):
 
     spectrograms = {}
 
+
     for genre in genres:
         for song in genre:
+            all_slices = []
             if song not in spectrograms:                               
                 try:               
                     all_slices = load_all_slices_of_spectrogram(song, slice_width)
-                    spectrograms[song] = all_slices
-                    slices_count += len(all_slices)
+                    spectrograms[song] = all_slices                    
                 except:
                     pass
+
+            slices_count += len(all_slices)
 
     height = next(iter(spectrograms.values()))[0].shape[0]
     width = next(iter(spectrograms.values()))[0].shape[1]  
@@ -77,8 +78,9 @@ def load_data_for_keras(slice_width):
         for song in genres[g]:
             if song in spectrograms:
                 for slice in spectrograms[song]:
+                    slice[g] += 1
                     x_data[i] = slice
                     y_data[i] = np.zeros((genres_count))
-                    y_data[i][g] = 1
+                    y_data[i, g] = 1
     
     return (x_data, y_data)
