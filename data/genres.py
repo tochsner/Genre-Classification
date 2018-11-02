@@ -7,7 +7,7 @@ import random
 import numpy as np
 from skimage.io import imread, imsave
 
-spectrogram_path = "data/sonos"
+spectrogram_path = "D:/Tobia/AI/Data MA Sono"
 spectrogram_type = ".png"
 genres_path = "data/genres.csv"
 
