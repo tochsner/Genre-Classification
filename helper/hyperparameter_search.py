@@ -19,10 +19,14 @@ class HyperparameterSearch:
         parameter_permutations = self.get_permutations(parameter, percentage_tested)
         number_rounds = len(parameter_permutations)
 
+        print("Start 0 / " + str(number_rounds))
+
         for r in range(number_rounds):
+            print(parameter_permutations[r])
+            print(str(r) + " / " + str(number_rounds))
+
             result = training_function(parameter_permutations[r])
             self.log_results(parameter_permutations[r], result)
-            print(str(r) + " / " + str(number_rounds))
 
     def get_permutations(self, parameter, percentage):
         keys, values = zip(*parameter.items())
