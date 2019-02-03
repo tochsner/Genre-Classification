@@ -10,7 +10,7 @@ from keras.preprocessing.image import ImageDataGenerator
 
 spectrogram_path = "/home/tobia/Documents/ML/Data MA Sono"
 spectrogram_type = ".png"
-genres_path = "/home/tobia/Documents/ML/Genre-Classification/data/genres_small.csv"
+genres_path = "/home/tobia/Documents/ML/Genre-Classification/data/genres.csv"
 
 """
 Imports a list of the songs in each genre. (genre, SpotifyURI)

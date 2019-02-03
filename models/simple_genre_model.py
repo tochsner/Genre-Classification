@@ -34,6 +34,7 @@ def build_model(input_shape, output_lenght):
     concatenated = Concatenate()([avgLayer, minLayer, maxLayer, stdLayer])
     flatten = Flatten()(concatenated)
     dense = Dense(150, activation='relu', name='dense1')(flatten)
+    dense = BatchNormalization()(dense)
     dense = Dense(output_lenght, activation='softmax', name='dense2')(dense)
     model = Model(inputs=inputLayer, outputs=dense)
     

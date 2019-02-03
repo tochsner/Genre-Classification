@@ -12,7 +12,7 @@ Runs genre classification based on spectrograms with keras.
 """
 
 def train_model():
-    epochs = 100
+    epochs = 50
     batch_size = 64
     slice_width = 40
     split_ratio = 0.8
@@ -29,7 +29,7 @@ def train_model():
 
     model = build_model(input_shape, output_lenght)
     
-    #model.load_weights('augmented')
+    model.load_weights('augmented_small')
     
     model.compile(loss='categorical_crossentropy',
                     optimizer=Adam(),
@@ -38,6 +38,6 @@ def train_model():
     model.fit_generator(dataset_augmentator.flow(data_train[0], y = data_train[1], batch_size=batch_size), steps_per_epoch=data_train[0].shape[0] / batch_size,
                         validation_data=data_test, epochs=epochs, verbose=1)
 
-    model.save_weights("augmented_small")
+    model.save_weights("augmented_pretrained")
 
 train_model()
