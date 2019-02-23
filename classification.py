@@ -12,11 +12,11 @@ Runs genre classification based on spectrograms with keras.
 """
 
 def train_model():
-    epochs = 50
-    batch_size = 64
+    epochs = 30
+    batch_size = 32
     slice_width = 40
-    split_ratio = 0.8
-    percetage_of_spectrograms_used = 0.35
+    split_ratio = 1
+    percetage_of_spectrograms_used = 0.4	
 
     data_train, data_test = load_data_for_keras(slice_width, split_ratio, percetage_of_spectrograms_used)
 
@@ -28,8 +28,8 @@ def train_model():
     output_lenght = data_train[1].shape[1]
 
     model = build_model(input_shape, output_lenght)
-    
-    model.load_weights('augmented_small')
+   
+    model.load_weights('/media/tobia/DISK_IMG/Genre 1')
     
     model.compile(loss='categorical_crossentropy',
                     optimizer=Adam(),
@@ -38,6 +38,6 @@ def train_model():
     model.fit_generator(dataset_augmentator.flow(data_train[0], y = data_train[1], batch_size=batch_size), steps_per_epoch=data_train[0].shape[0] / batch_size,
                         validation_data=data_test, epochs=epochs, verbose=1)
 
-    model.save_weights("augmented_pretrained")
+    model.save_weights("augmented_final")
 
 train_model()

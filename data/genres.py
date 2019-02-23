@@ -95,4 +95,4 @@ def load_data_for_keras(slice_width, ratio = 0.7, percentage_of_spectrograms_use
 
 def get_image_data_generator():
     return ImageDataGenerator(
-            height_shift_range=50)
+            height_shift_range=30)
