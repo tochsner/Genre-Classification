@@ -29,11 +29,11 @@ def build_model(input_shape, output_lenght):
         
     avgLayer = AveragePooling2D((1, width - 6))(convLayer3)
     maxLayer = MaxPooling2D((1, width - 6))(convLayer3)
-    minLayer = Lambda(min_layer)(convLayer3)
     stdLayer = Lambda(std_layer)(convLayer3)
-    concatenated = Concatenate()([avgLayer, stdLayer])
+    concatenated = Concatenate()([avgLayer, stdLayer, maxLayer])
     flatten = Flatten()(concatenated)
     dense = Dense(120, activation='relu', name='dense1')(flatten)
+    dense = BatchNormalization()(dense)
     dense = Dense(output_lenght, activation='softmax', name='dense2')(dense)
     model = Model(inputs=inputLayer, outputs=dense)
     
